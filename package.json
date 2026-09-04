@@ -1,6 +1,6 @@
 {
-  "name": "firefox-chatgpt-pwa-tabs",
-  "version": "0.1.1",
+  "name": "firefox-pwa-tabs",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "test": "node --test",

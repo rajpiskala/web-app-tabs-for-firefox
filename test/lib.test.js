@@ -3,26 +3,41 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const {
-  CHATGPT_HOME,
   getActiveTab,
-  isChatGptUrl,
-  openChatGptTab,
-  requireChatGptTab
+  getNewTabUrl,
+  isWebUrl,
+  openPwaTab,
+  requireWebTab
 } = require("../lib.js");
 
-test("recognizes only secure chatgpt.com pages", () => {
-  assert.equal(isChatGptUrl("https://chatgpt.com/"), true);
-  assert.equal(isChatGptUrl("https://chatgpt.com/c/123"), true);
-  assert.equal(isChatGptUrl("http://chatgpt.com/"), false);
-  assert.equal(isChatGptUrl("https://notchatgpt.com/"), false);
-  assert.equal(isChatGptUrl("not a URL"), false);
+test("recognizes HTTP and HTTPS web-app pages", () => {
+  assert.equal(isWebUrl("https://chatgpt.com/"), true);
+  assert.equal(isWebUrl("https://example.com/app"), true);
+  assert.equal(isWebUrl("http://localhost:3000/"), true);
+  assert.equal(isWebUrl("about:config"), false);
+  assert.equal(isWebUrl("file:///tmp/index.html"), false);
+  assert.equal(isWebUrl("not a URL"), false);
 });
 
-test("rejects missing and non-ChatGPT tabs", () => {
-  assert.throws(() => requireChatGptTab(), /active browser tab/);
+test("opens a fresh home page for sites with a start-URL override", () => {
+  assert.equal(
+    getNewTabUrl("https://chatgpt.com/c/123?model=test#latest"),
+    "https://chatgpt.com/"
+  );
+});
+
+test("reuses the current page URL for a generic PWA", () => {
+  assert.equal(
+    getNewTabUrl("https://example.com/app/dashboard?view=today#card"),
+    "https://example.com/app/dashboard?view=today#card"
+  );
+});
+
+test("rejects missing and non-web tabs", () => {
+  assert.throws(() => requireWebTab(), /active browser tab/);
   assert.throws(
-    () => requireChatGptTab({ id: 1, windowId: 2, url: "https://example.com/" }),
-    /Focus a chatgpt.com tab/
+    () => requireWebTab({ id: 1, windowId: 2, url: "about:addons" }),
+    /Focus a web-app page/
   );
 });
 
@@ -31,7 +46,7 @@ test("queries the active tab in the last-focused window", async () => {
     id: 7,
     windowId: 19,
     index: 0,
-    url: "https://chatgpt.com/"
+    url: "https://example.com/app"
   };
   let receivedQuery;
   const browserApi = {
@@ -50,11 +65,40 @@ test("queries the active tab in the last-focused window", async () => {
   });
 });
 
-test("creates a fresh ChatGPT tab beside the source tab in the same window", async () => {
+test("creates another PWA tab beside the source tab in the same window", async () => {
   const source = {
     id: 7,
     windowId: 19,
     index: 2,
+    url: "https://example.com/app/dashboard"
+  };
+  let receivedProperties;
+  const browserApi = {
+    tabs: {
+      async create(properties) {
+        receivedProperties = properties;
+        return { id: 8, windowId: properties.windowId, index: properties.index };
+      }
+    }
+  };
+
+  const created = await openPwaTab(browserApi, source);
+
+  assert.equal(created.windowId, source.windowId);
+  assert.deepEqual(receivedProperties, {
+    windowId: 19,
+    url: "https://example.com/app/dashboard",
+    active: true,
+    openerTabId: 7,
+    index: 3
+  });
+});
+
+test("keeps ChatGPT's new-tab behavior pointed at a fresh chat", async () => {
+  const source = {
+    id: 7,
+    windowId: 19,
+    index: 0,
     url: "https://chatgpt.com/c/123"
   };
   let receivedProperties;
@@ -67,16 +111,8 @@ test("creates a fresh ChatGPT tab beside the source tab in the same window", asy
     }
   };
 
-  const created = await openChatGptTab(browserApi, source);
-
-  assert.equal(created.windowId, source.windowId);
-  assert.deepEqual(receivedProperties, {
-    windowId: 19,
-    url: CHATGPT_HOME,
-    active: true,
-    openerTabId: 7,
-    index: 3
-  });
+  await openPwaTab(browserApi, source);
+  assert.equal(receivedProperties.url, "https://chatgpt.com/");
 });
 
 test("fails loudly if Firefox routes the new tab into another window", async () => {
@@ -84,7 +120,7 @@ test("fails loudly if Firefox routes the new tab into another window", async () 
     id: 7,
     windowId: 19,
     index: 0,
-    url: "https://chatgpt.com/"
+    url: "https://example.com/app"
   };
   const browserApi = {
     tabs: {
@@ -94,8 +130,5 @@ test("fails loudly if Firefox routes the new tab into another window", async () 
     }
   };
 
-  await assert.rejects(
-    openChatGptTab(browserApi, source),
-    /different window/
-  );
+  await assert.rejects(openPwaTab(browserApi, source), /different window/);
 });

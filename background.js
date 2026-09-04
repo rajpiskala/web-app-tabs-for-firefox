@@ -1,29 +1,29 @@
-(function registerChatGptPwaTabs(root) {
+(function registerFirefoxPwaTabs(root) {
   "use strict";
 
   const browserApi = root.browser;
-  const api = root.ChatGptPwaTabs;
-  const MENU_ID = "open-chatgpt-tab-in-current-window";
+  const api = root.FirefoxPwaTabs;
+  const MENU_ID = "open-pwa-tab-in-current-window";
 
   async function openFrom(tab) {
     try {
-      await api.openChatGptTab(browserApi, tab);
+      await api.openPwaTab(browserApi, tab);
     } catch (error) {
-      console.error("[ChatGPT PWA Tabs]", error);
+      console.error("[PWA Tabs for Firefox]", error);
     }
   }
 
   browserApi.runtime.onInstalled.addListener(() => {
     browserApi.menus.create({
       id: MENU_ID,
-      title: "Open a new ChatGPT tab in this window",
+      title: "Open another PWA tab in this window",
       contexts: ["page"],
-      documentUrlPatterns: ["https://chatgpt.com/*"]
+      documentUrlPatterns: ["http://*/*", "https://*/*"]
     });
   });
 
   browserApi.commands.onCommand.addListener(command => {
-    if (command === "open-chatgpt-tab") {
+    if (command === "open-pwa-tab") {
       void openFrom();
     }
   });

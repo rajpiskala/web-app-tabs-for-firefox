@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "ChatGPT PWA Tabs",
-  "version": "0.1.1",
-  "description": "Open additional ChatGPT tabs inside the currently focused Firefox window, including native Firefox web-app windows.",
+  "name": "PWA Tabs for Firefox",
+  "version": "0.2.0",
+  "description": "Open additional tabs inside the currently focused Firefox window, including native Firefox web-app windows.",
   "permissions": [
     "activeTab",
     "menus"
@@ -14,19 +14,19 @@
     ]
   },
   "action": {
-    "default_title": "Open a new ChatGPT tab in this window"
+    "default_title": "Open another PWA tab in this window"
   },
   "commands": {
-    "open-chatgpt-tab": {
+    "open-pwa-tab": {
       "suggested_key": {
         "default": "Alt+Shift+G"
       },
-      "description": "Open a new ChatGPT tab in the current window"
+      "description": "Open another PWA tab in the current window"
     }
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "chatgpt-pwa-tabs@local",
+      "id": "pwa-tabs-for-firefox@local",
       "strict_min_version": "143.0"
     }
   }
