@@ -1,0 +1,9 @@
+{
+  "name": "firefox-chatgpt-pwa-tabs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check lib.js && node --check background.js && node -e \"JSON.parse(require('node:fs').readFileSync('manifest.json', 'utf8'))\""
+  }
+}
