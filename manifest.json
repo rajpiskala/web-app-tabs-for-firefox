@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "ChatGPT PWA Tabs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open additional ChatGPT tabs inside the currently focused Firefox window, including native Firefox web-app windows.",
   "permissions": [
     "activeTab",
@@ -19,7 +19,7 @@
   "commands": {
     "open-chatgpt-tab": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Y"
+        "default": "Alt+Shift+G"
       },
       "description": "Open a new ChatGPT tab in the current window"
     }

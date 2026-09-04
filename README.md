@@ -17,7 +17,7 @@ WebExtension Tabs API can deliberately create that second tab.
 3. Select **Load Temporary Add-on...**.
 4. Choose this folder's `manifest.json` file.
 5. Open or focus the native ChatGPT web app created with **Add tab to taskbar**.
-6. Press **Ctrl+Shift+Y**.
+6. Press **Alt+Shift+G**.
 
 Expected result: Firefox opens `https://chatgpt.com/` beside the existing tab
 in the same web-app window, and Firefox reveals the tab strip. Use the same
