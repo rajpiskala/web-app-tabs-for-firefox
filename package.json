@@ -1,5 +1,5 @@
 {
-  "name": "firefox-pwa-tabs",
+  "name": "web-app-tabs-for-firefox",
   "version": "0.3.0",
   "description": "Multiple tabs inside native Firefox web-app windows.",
   "private": true,
