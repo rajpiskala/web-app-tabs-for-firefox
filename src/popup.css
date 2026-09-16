@@ -1,0 +1,149 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 16px;
+  color: light-dark(#182033, #f3f1ff);
+  background: light-dark(#ffffff, #1b1924);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+header p,
+.help,
+.privacy {
+  color: light-dark(#596174, #b9b5c7);
+  font-size: 12px;
+}
+
+button {
+  font: inherit;
+}
+
+.primary {
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 7px;
+  color: #ffffff;
+  background: #5138ee;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.primary:hover:not(:disabled) {
+  background: #422bd1;
+}
+
+section {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid light-dark(#e2e4eb, #3a3746);
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.shortcut {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid light-dark(#aeb5c4, #676174);
+  border-radius: 7px;
+  color: inherit;
+  background: light-dark(#ffffff, #24212e);
+  text-align: left;
+  cursor: pointer;
+}
+
+.shortcut:hover:not(:disabled),
+.shortcut:focus-visible,
+.shortcut.recording {
+  border-color: #6b54ff;
+  outline: 2px solid color-mix(in srgb, #6b54ff 25%, transparent);
+}
+
+.shortcut.recording {
+  background: light-dark(#f2efff, #2e2943);
+}
+
+.help {
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid light-dark(#c7ccd6, #5a5666);
+  border-radius: 6px;
+  color: inherit;
+  background: light-dark(#f7f8fb, #292632);
+  cursor: pointer;
+}
+
+.link-button {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  color: light-dark(#3d2bc4, #bdb3ff);
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.link-button:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.status {
+  min-height: 16px;
+  margin-top: 12px;
+  color: light-dark(#126b47, #7cdaa9);
+  font-size: 12px;
+}
+
+.status.error {
+  color: light-dark(#a12536, #ff99a8);
+}
+
+.privacy {
+  margin-top: 8px;
+  text-align: center;
+}

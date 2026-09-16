@@ -6,9 +6,9 @@ const {
   getActiveTab,
   getNewTabUrl,
   isWebUrl,
-  openPwaTab,
+  openWebAppTab,
   requireWebTab
-} = require("../lib.js");
+} = require("../src/lib.js");
 
 test("recognizes HTTP and HTTPS web-app pages", () => {
   assert.equal(isWebUrl("https://chatgpt.com/"), true);
@@ -37,7 +37,7 @@ test("rejects missing and non-web tabs", () => {
   assert.throws(() => requireWebTab(), /active browser tab/);
   assert.throws(
     () => requireWebTab({ id: 1, windowId: 2, url: "about:addons" }),
-    /Focus a web-app page/
+    /Focus an HTTP or HTTPS web-app page/
   );
 });
 
@@ -82,7 +82,7 @@ test("creates another PWA tab beside the source tab in the same window", async (
     }
   };
 
-  const created = await openPwaTab(browserApi, source);
+  const created = await openWebAppTab(browserApi, source);
 
   assert.equal(created.windowId, source.windowId);
   assert.deepEqual(receivedProperties, {
@@ -111,7 +111,7 @@ test("keeps ChatGPT's new-tab behavior pointed at a fresh chat", async () => {
     }
   };
 
-  await openPwaTab(browserApi, source);
+  await openWebAppTab(browserApi, source);
   assert.equal(receivedProperties.url, "https://chatgpt.com/");
 });
 
@@ -130,5 +130,5 @@ test("fails loudly if Firefox routes the new tab into another window", async () 
     }
   };
 
-  await assert.rejects(openPwaTab(browserApi, source), /different window/);
+  await assert.rejects(openWebAppTab(browserApi, source), /different window/);
 });

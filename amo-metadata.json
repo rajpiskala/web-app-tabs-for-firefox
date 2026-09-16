@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "en-US": "Open multiple tabs inside native Firefox web-app windows."
+  },
+  "categories": [
+    "tabs"
+  ],
+  "version": {
+    "license": "MPL-2.0",
+    "approval_notes": "This extension is Windows-only in practice because Firefox native web apps are currently available only on Windows. To test: create a Firefox web app with Add tab to taskbar, focus it, and press Alt+Shift+G. The extension uses browser.tabs.create with the active tab's windowId, causing Firefox to reveal its built-in tab strip. It contains no content scripts, remote code, telemetry, data collection, or network requests. All packaged JavaScript is unminified and human-readable; no separate source archive is required."
+  }
+}

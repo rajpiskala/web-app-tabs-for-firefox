@@ -1,9 +1,32 @@
 {
   "name": "firefox-pwa-tabs",
-  "version": "0.2.0",
+  "version": "0.3.0",
+  "description": "Multiple tabs inside native Firefox web-app windows.",
   "private": true,
+  "author": "Raj Piskala",
+  "license": "MPL-2.0",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "node --test",
-    "check": "node --check lib.js && node --check background.js && node -e \"JSON.parse(require('node:fs').readFileSync('manifest.json', 'utf8'))\""
+    "clean": "node tools/clean-dist.mjs",
+    "lint": "node tools/run-web-ext.mjs lint --source-dir src --warnings-as-errors",
+    "check:syntax": "node --check src/lib.js && node --check src/background.js && node --check src/shortcut.js && node --check src/popup.js",
+    "build:package": "node tools/build-package.mjs",
+    "verify-build": "node tools/verify-build.mjs",
+    "check": "npm run check:syntax && npm run lint && npm test",
+    "build": "npm run clean && npm run check && npm run build:package && npm run verify-build",
+    "release": "npm run build",
+    "publish:amo": "npm run build && node tools/run-web-ext.mjs sign --source-dir dist/firefox --artifacts-dir dist/signed --channel=listed --amo-metadata=amo-metadata.json",
+    "version:set": "node tools/set-version.mjs"
+  },
+  "devDependencies": {
+    "web-ext": "10.6.0",
+    "yauzl": "^3.4.0",
+    "yazl": "^3.3.1"
+  },
+  "overrides": {
+    "image-size": "2.0.4"
   }
 }

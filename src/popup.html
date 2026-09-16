@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web App Tabs for Firefox</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon.svg" alt="" width="36" height="36">
+    <div>
+      <h1>Web App Tabs</h1>
+      <p>Multiple tabs, one web-app window.</p>
+    </div>
+  </header>
+
+  <button id="openTab" class="primary" type="button">Open another tab</button>
+
+  <section aria-labelledby="shortcutHeading">
+    <h2 id="shortcutHeading">Keyboard shortcut</h2>
+    <button id="shortcut" class="shortcut" type="button"></button>
+    <p class="help">Click, then press a Firefox-compatible key combination.</p>
+
+    <div class="actions">
+      <button id="clearShortcut" type="button">Clear</button>
+      <button id="resetShortcut" type="button">Reset default</button>
+    </div>
+
+    <button id="manageShortcuts" class="link-button" type="button">
+      Manage all extension shortcuts
+    </button>
+  </section>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <p class="privacy">No analytics. No data leaves your browser.</p>
+
+  <script src="shortcut.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

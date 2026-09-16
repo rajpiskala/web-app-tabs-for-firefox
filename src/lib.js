@@ -1,10 +1,10 @@
-(function exposeFirefoxPwaTabs(root, factory) {
+(function exposeWebAppTabs(root, factory) {
   const api = factory();
 
   if (typeof module === "object" && module.exports) {
     module.exports = api;
   } else {
-    root.FirefoxPwaTabs = api;
+    root.WebAppTabs = api;
   }
 })(typeof globalThis === "object" ? globalThis : this, function createApi() {
   "use strict";
@@ -42,7 +42,7 @@
 
     if (!isWebUrl(tab.url)) {
       throw new Error(
-        "Focus a web-app page before using PWA Tabs for Firefox."
+        "Focus an HTTP or HTTPS web-app page before opening another tab."
       );
     }
 
@@ -58,7 +58,7 @@
     return requireWebTab(tabs[0]);
   }
 
-  async function openPwaTab(browserApi, candidateTab) {
+  async function openWebAppTab(browserApi, candidateTab) {
     const sourceTab = candidateTab
       ? requireWebTab(candidateTab)
       : await getActiveTab(browserApi);
@@ -79,7 +79,7 @@
 
     if (createdTab.windowId !== sourceTab.windowId) {
       throw new Error(
-        "Firefox created the tab in a different window instead of the focused PWA window."
+        "Firefox created the tab in a different window instead of the focused web-app window."
       );
     }
 
@@ -91,7 +91,7 @@
     getNewTabUrl,
     getActiveTab,
     isWebUrl,
-    openPwaTab,
+    openWebAppTab,
     requireWebTab
   };
 });

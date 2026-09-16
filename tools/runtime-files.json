@@ -1,0 +1,11 @@
+[
+  "LICENSE",
+  "src/background.js",
+  "src/icons/icon.svg",
+  "src/lib.js",
+  "src/manifest.json",
+  "src/popup.css",
+  "src/popup.html",
+  "src/popup.js",
+  "src/shortcut.js"
+]

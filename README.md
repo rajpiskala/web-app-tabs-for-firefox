@@ -1,80 +1,84 @@
-# PWA Tabs for Firefox
+<div align="center">
+  <img src="src/icons/icon.svg" alt="" width="96" height="96">
+  <h1>Web App Tabs for Firefox</h1>
+  <p>Multiple tabs, one native Firefox web-app window.</p>
+</div>
 
-A minimal Firefox WebExtension that opens another tab inside the currently
-focused Firefox window. Its intended use is Firefox's native **Add tab to
-taskbar** web-app windows.
+Firefox web apps intentionally hide their tab strip and send normal new-tab
+actions to the main browser window. This small Firefox-only extension opens a
+tab against the focused window's exact `windowId`, which makes Firefox reveal
+its existing tab strip inside the web-app window.
 
-Firefox normally routes new-tab actions away from native web-app windows. This
-extension supplies the current window's exact `windowId` to the WebExtension
-Tabs API, which allows Firefox to add the tab to that window and reveal its
-normally hidden tab strip.
+It works with any HTTP or HTTPS site added using Firefox's **Add tab to
+taskbar** feature, including sites commonly described as PWAs. ChatGPT gets a
+small convenience override so every new tab starts a fresh chat; other sites
+duplicate the current page URL because Firefox does not expose a web app's
+registered start URL to extensions.
 
-The approach was verified with a ChatGPT native web app on Firefox 154.0.1.
+## Use it
 
-## Load temporarily in Firefox
+Focus a native Firefox web-app window, then either:
 
-1. Keep this folder on disk.
-2. In a normal Firefox window, open `about:debugging#/runtime/this-firefox`.
-3. Select **Load Temporary Add-on...**.
-4. Choose this folder's `manifest.json` file.
-5. Open or focus any native Firefox web app created with **Add tab to taskbar**.
-6. Press **Alt+Shift+G**.
+- Press **Alt+Shift+G**.
+- Click the extension button and choose **Open another tab**.
+- Right-click the page and choose **Open another web-app tab in this window**.
 
-Expected result: Firefox opens another tab beside the existing tab in the same
-web-app window and reveals the tab strip. Use the shortcut again for every
-additional tab.
+Click the extension button to record a different shortcut, clear it, reset the
+default, or open Firefox's full extension-shortcut settings. Firefox will not
+activate a combination already reserved by Firefox or another extension.
 
-Two alternative triggers are also included:
+Firefox's built-in **Ctrl+T** still targets the main browser window. The
+extension cannot replace that browser-owned behavior.
 
-- Click the extension's toolbar button if Firefox shows it in the web-app
-  window.
-- Right-click the web-app page and choose **Open another PWA tab in this
-  window**.
+## Compatibility
 
-Firefox's built-in **Ctrl+T** still targets the main browser window. If the
-suggested shortcut conflicts with another extension, open `about:addons`, click
-the gear button, select **Manage Extension Shortcuts**, and assign another key.
+- Firefox 143 or newer.
+- Windows, because native Firefox web apps are currently a Windows-only
+  feature.
+- Regular HTTP and HTTPS browser tabs also work, although the extension is
+  designed for web-app windows.
 
-## Which URL opens?
+This relies on current Firefox behavior rather than a documented web-app tabs
+feature. A future Firefox release could change it. See the
+[policy and platform review](docs/policy-review.md) for the technical details.
 
-- ChatGPT always opens `https://chatgpt.com/`, producing a fresh chat.
-- Other PWAs duplicate the current page URL. This is the safest generic
-  behavior because Firefox does not expose the native web app's registered
-  start URL through the WebExtension API.
+## Privacy and permissions
 
-Invoking the extension from a normal HTTP or HTTPS Firefox tab also opens the
-new tab in that normal window. Firefox does not expose whether a window is a
-native Taskbar-Tab window to extensions.
+The extension stores no data, contains no analytics or content scripts, and
+sends no network requests of its own. See [PRIVACY.md](PRIVACY.md).
 
-## What to report from a live test
+- `activeTab` lets it read the current page URL after an explicit user action.
+- `menus` adds the page context-menu fallback.
 
-- If a second tab appears in the web-app window, the experiment worked.
-- If a new tab appears in the normal Firefox window, Firefox ignored the target
-  web-app `windowId` in that Firefox build.
-- If nothing happens, return to `about:debugging#/runtime/this-firefox`, find
-  **PWA Tabs for Firefox**, click **Inspect**, and copy the line beginning with
-  `[PWA Tabs for Firefox]` from the extension console.
+It does not request site-wide access, browsing history, cookies, or the broad
+`tabs` permission.
 
-## Temporary-extension limitation
-
-Firefox removes temporary extensions when it exits. For a permanent
-installation, package and sign the extension through Mozilla Add-ons as an
-unlisted extension, or publish it publicly after completing broader testing.
-
-## Permissions and privacy
-
-- `activeTab`: lets the extension read the current tab's URL only when the user
-  explicitly invokes the extension.
-- `menus`: adds the page context-menu fallback.
-
-The extension has no content script, stores no data, and sends no network
-requests of its own.
-
-## Development checks
-
-With Node.js installed:
+## Local development
 
 ```text
-npm test
+npm ci
 npm run check
+npm run release
 ```
+
+`npm run release` lints the extension with Mozilla's official tooling, runs
+the tests, builds the exact reviewed runtime files, and verifies the package.
+The AMO-ready ZIP is written to `dist/packages/` and the unpacked build to
+`dist/firefox/`.
+
+For temporary installation, open `about:debugging#/runtime/this-firefox`,
+choose **Load Temporary Add-on**, and select `src/manifest.json` (or the
+manifest in `dist/firefox/` after a build).
+
+See [docs/publishing.md](docs/publishing.md) for the one-time AMO setup and
+one-command release flow.
+
+## Independence
+
+Web App Tabs for Firefox is an independent extension and is not produced,
+sponsored, or endorsed by Mozilla. Firefox is a trademark of the Mozilla
+Foundation in the U.S. and other countries.
+
+## License
+
+[Mozilla Public License 2.0](LICENSE)
