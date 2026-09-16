@@ -5,6 +5,14 @@
   "private": true,
   "author": "Raj Piskala",
   "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajpiskala/web-app-tabs-for-firefox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rajpiskala/web-app-tabs-for-firefox/issues"
+  },
+  "homepage": "https://github.com/rajpiskala/web-app-tabs-for-firefox#readme",
   "engines": {
     "node": ">=20"
   },
