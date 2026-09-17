@@ -143,6 +143,10 @@ Bug reports and focused pull requests are welcome. Please open an issue before
 starting a substantial behavior or interface change, and run `npm run check`
 before submitting a pull request.
 
+## Support
+
+If this project saved you some time, fixed something annoying, or made your workflow a little better, you can [sponsor my open-source work](https://github.com/sponsors/rajpiskala). Everything here stays free and open source. 💗
+
 ## License
 
 Licensed under the [Mozilla Public License 2.0](LICENSE).
