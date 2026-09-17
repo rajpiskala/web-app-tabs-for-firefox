@@ -28,7 +28,7 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .brand {
@@ -102,10 +102,16 @@ button {
   font-size: 11px;
   line-height: 1.4;
   text-align: center;
+  white-space: nowrap;
 }
 
 .web-app-help {
-  margin-top: 10px;
+  margin: -4px 0 12px 46px;
+}
+
+.web-app-help[open] {
+  margin-left: 0;
+  padding: 9px 10px;
   border: 1px solid light-dark(#e2e4eb, #3a3746);
   border-radius: 7px;
   background: light-dark(#f7f8fb, #24212e);
@@ -114,13 +120,19 @@ button {
 .web-app-help summary {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 10px;
-  color: light-dark(#3d2bc4, #bdb3ff);
-  font-size: 12px;
-  font-weight: 600;
+  gap: 5px;
+  padding: 0;
+  color: light-dark(#596174, #b9b5c7);
+  font-size: 11px;
+  font-weight: 500;
   cursor: pointer;
   list-style: none;
+}
+
+.web-app-help summary:hover,
+.web-app-help summary:focus-visible {
+  color: light-dark(#3d2bc4, #bdb3ff);
+  text-decoration: underline;
 }
 
 .web-app-help summary::-webkit-details-marker {
@@ -129,18 +141,18 @@ button {
 
 .info-icon {
   display: inline-grid;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   place-items: center;
   border: 1px solid currentColor;
   border-radius: 50%;
   font-family: Georgia, serif;
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1;
 }
 
 .help-panel {
-  padding: 0 10px 10px 33px;
+  padding: 8px 0 0 19px;
   color: light-dark(#454d60, #c8c4d2);
   font-size: 11px;
   line-height: 1.45;

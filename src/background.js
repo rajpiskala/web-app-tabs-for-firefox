@@ -19,7 +19,7 @@
     void browserApi.menus.removeAll()
       .then(() => browserApi.menus.create({
         id: MENU_ID,
-        title: "Open another web-app tab in this window",
+        title: "Open another tab in this window",
         contexts: ["page"],
         documentUrlPatterns: ["http://*/*", "https://*/*"]
       }))

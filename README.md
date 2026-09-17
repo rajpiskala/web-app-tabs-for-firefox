@@ -15,13 +15,21 @@ small convenience override so every new tab starts a fresh chat; other sites
 duplicate the current page URL because Firefox does not expose a web app's
 registered start URL to extensions.
 
+In an ordinary Firefox window, that same URL behavior is also a convenient way
+to reopen the current page in a new tab. This is a fresh page load, not a clone
+of the original tab's history, scroll position, or unsaved form state. ChatGPT
+keeps its fresh-chat override in both window types.
+
 ## Use it
 
 Focus a native Firefox web-app window, then either:
 
 - Press **Alt+Shift+G**.
 - Click the extension button and choose **Open another tab**.
-- Right-click the page and choose **Open another web-app tab in this window**.
+- Right-click the page and choose **Open another tab in this window**.
+
+The button and shortcut also work in ordinary HTTP or HTTPS tabs, where they
+reopen the current page in another tab.
 
 Click the extension button to record a different shortcut, clear it, reset the
 default, open Firefox's full extension-shortcut settings, or switch the popup
@@ -32,7 +40,8 @@ Not sure whether you are in the right window? A Firefox web app is a site you
 added with **Add tab to taskbar** and launched from that site's standalone icon
 on the Windows taskbar. The popup includes a **What counts as a web app?**
 explanation. The extension adds tabs to that app-style window; it does not turn
-a regular Firefox tab into a web app.
+a regular Firefox tab into a web app. In a regular window, it simply provides
+the page-reopening shortcut described above.
 
 Firefox's built-in **Ctrl+T** still targets the main browser window. The
 extension cannot replace that browser-owned behavior.
@@ -42,9 +51,9 @@ extension cannot replace that browser-owned behavior.
 - Firefox 143 or newer.
 - Windows, because native Firefox web apps are currently a Windows-only
   feature.
-- Firefox does not expose a reliable web-app-window flag to extensions. If the
-  command is invoked in a regular HTTP or HTTPS window, Firefox may simply open
-  an ordinary tab there; that does not create or reproduce the web-app workflow.
+- Regular HTTP and HTTPS tabs are supported as a convenient reopen-this-page
+  shortcut. Firefox does not expose a reliable web-app-window flag, so the
+  extension uses the appropriate same-window behavior in either context.
 
 This relies on current Firefox behavior rather than a documented web-app tabs
 feature. A future Firefox release could change it. See the

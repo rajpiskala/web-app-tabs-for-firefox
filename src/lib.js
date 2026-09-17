@@ -42,7 +42,7 @@
 
     if (!isWebUrl(tab.url)) {
       throw new Error(
-        "Open a Firefox web app from its standalone Windows taskbar icon, then try again. This extension is not for regular Firefox tabs or Firefox settings pages."
+        "Open an HTTP or HTTPS page first. Web App Tabs works in Firefox web-app windows and regular browser tabs, but not Firefox settings pages."
       );
     }
 

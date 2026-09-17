@@ -24,7 +24,7 @@
       "suggested_key": {
         "default": "Alt+Shift+G"
       },
-      "description": "Open another tab in the current web-app window"
+      "description": "Open another tab in the current Firefox window"
     }
   },
   "icons": {
