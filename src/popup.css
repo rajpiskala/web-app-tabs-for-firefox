@@ -197,39 +197,18 @@ h2 {
 
 .actions {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
   gap: 8px;
   margin-top: 10px;
 }
 
 .actions button {
+  flex: 1;
   padding: 8px 10px;
-  cursor: pointer;
-}
-
-.actions .clear-action {
-  margin-right: auto;
-  padding-right: 0;
-  padding-left: 0;
-  border: 0;
-  color: light-dark(#596174, #b9b5c7);
-  background: transparent;
-  font-size: 12px;
-}
-
-.actions .clear-action:hover:not(:disabled),
-.actions .clear-action:focus-visible {
-  color: light-dark(#3d2bc4, #bdb3ff);
-  text-decoration: underline;
-}
-
-.actions .reset-action {
   border: 1px solid light-dark(#c7ccd6, #5a5666);
   border-radius: 6px;
   color: inherit;
   background: light-dark(#f7f8fb, #292632);
-  font-weight: 600;
+  cursor: pointer;
 }
 
 .link-button {
