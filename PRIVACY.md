@@ -13,7 +13,9 @@ the newly opened page is loaded normally by Firefox and is governed by that
 website's own privacy policy.
 
 Changing the keyboard shortcut uses Firefox's local extension commands API.
-No extension settings are synchronized or transmitted by this extension.
+Choosing light or dark mode stores that display preference in the extension's
+local browser storage. No extension settings are synchronized or transmitted
+by this extension.
 
 Questions can be sent through the support contact on the extension's Mozilla
 Add-ons listing.

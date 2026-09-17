@@ -7,5 +7,6 @@
   "src/popup.css",
   "src/popup.html",
   "src/popup.js",
-  "src/shortcut.js"
+  "src/shortcut.js",
+  "src/theme.js"
 ]

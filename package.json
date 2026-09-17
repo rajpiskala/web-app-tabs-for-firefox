@@ -20,7 +20,7 @@
     "test": "node --test",
     "clean": "node tools/clean-dist.mjs",
     "lint": "node tools/run-web-ext.mjs lint --source-dir src --warnings-as-errors",
-    "check:syntax": "node --check src/lib.js && node --check src/background.js && node --check src/shortcut.js && node --check src/popup.js",
+    "check:syntax": "node --check src/lib.js && node --check src/background.js && node --check src/shortcut.js && node --check src/theme.js && node --check src/popup.js",
     "build:package": "node tools/build-package.mjs",
     "verify-build": "node tools/verify-build.mjs",
     "check": "npm run check:syntax && npm run lint && npm test",

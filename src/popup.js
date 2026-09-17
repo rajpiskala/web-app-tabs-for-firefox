@@ -1,15 +1,21 @@
 (function exposePopup(root, factory) {
-  const tools = typeof module === "object" && module.exports
+  const shortcutTools = typeof module === "object" && module.exports
     ? require("./shortcut.js")
     : root.WebAppTabsShortcut;
-  const api = factory(tools);
+  const themeTools = typeof module === "object" && module.exports
+    ? require("./theme.js")
+    : root.WebAppTabsTheme;
+  const api = factory(shortcutTools, themeTools);
 
   if (typeof module === "object" && module.exports) {
     module.exports = api;
   } else {
     root.WebAppTabsPopup = api;
   }
-})(typeof globalThis === "object" ? globalThis : this, function createPopupApi(tools) {
+})(typeof globalThis === "object" ? globalThis : this, function createPopupApi(
+  shortcutTools,
+  themeTools
+) {
   "use strict";
 
   const COMMAND_NAME = "open-web-app-tab";
@@ -18,9 +24,14 @@
   async function initializePopup({
     documentRef = document,
     browserApi = browser,
-    closePopup = () => window.close()
+    closePopup = () => window.close(),
+    storageRef = globalThis.localStorage,
+    matchMediaRef = globalThis.matchMedia?.bind(globalThis)
   } = {}) {
     const openButton = documentRef.getElementById("openTab");
+    const themeButton = documentRef.getElementById("themeToggle");
+    const themeIcon = documentRef.getElementById("themeIcon");
+    const themeLabel = documentRef.getElementById("themeLabel");
     const shortcutButton = documentRef.getElementById("shortcut");
     const clearButton = documentRef.getElementById("clearShortcut");
     const resetButton = documentRef.getElementById("resetShortcut");
@@ -29,6 +40,11 @@
     let shortcut = "";
     let recording = false;
     let pending = false;
+    let theme = themeTools.initializeTheme({
+      documentRef,
+      storageRef,
+      matchMediaRef
+    });
 
     function setStatus(message, isError = false) {
       status.textContent = message;
@@ -36,9 +52,15 @@
     }
 
     function render() {
+      const nextTheme = theme === "dark" ? "light" : "dark";
+      themeIcon.textContent = nextTheme === "light" ? "☀" : "☾";
+      themeLabel.textContent = nextTheme === "light" ? "Light" : "Dark";
+      themeButton.setAttribute("aria-label", `Use ${nextTheme} mode`);
+      themeButton.setAttribute("title", `Use ${nextTheme} mode`);
+
       shortcutButton.textContent = recording
         ? "Press a key combination…"
-        : tools.formatShortcut(shortcut);
+        : shortcutTools.formatShortcut(shortcut);
       shortcutButton.classList.toggle("recording", recording);
       shortcutButton.setAttribute("aria-pressed", String(recording));
 
@@ -125,7 +147,7 @@
         return;
       }
 
-      const result = tools.eventToShortcut(event);
+      const result = shortcutTools.eventToShortcut(event);
       if (result.error) {
         setStatus(result.error, true);
         return;
@@ -134,8 +156,17 @@
 
       await saveShortcut(
         result.shortcut,
-        `Saved ${tools.formatShortcut(result.shortcut)}.`
+        `Saved ${shortcutTools.formatShortcut(result.shortcut)}.`
       );
+    }
+
+    function toggleTheme() {
+      theme = themeTools.toggleTheme({
+        documentRef,
+        storageRef,
+        matchMediaRef
+      });
+      render();
     }
 
     async function clearShortcut() {
@@ -171,6 +202,7 @@
     }
 
     openButton.addEventListener("click", openTab);
+    themeButton.addEventListener("click", toggleTheme);
     shortcutButton.addEventListener("click", startRecording);
     clearButton.addEventListener("click", clearShortcut);
     resetButton.addEventListener("click", resetShortcut);

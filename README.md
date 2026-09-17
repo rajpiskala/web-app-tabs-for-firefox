@@ -24,8 +24,15 @@ Focus a native Firefox web-app window, then either:
 - Right-click the page and choose **Open another web-app tab in this window**.
 
 Click the extension button to record a different shortcut, clear it, reset the
-default, or open Firefox's full extension-shortcut settings. Firefox will not
-activate a combination already reserved by Firefox or another extension.
+default, open Firefox's full extension-shortcut settings, or switch the popup
+between light and dark mode. Firefox will not activate a combination already
+reserved by Firefox or another extension.
+
+Not sure whether you are in the right window? A Firefox web app is a site you
+added with **Add tab to taskbar** and launched from that site's standalone icon
+on the Windows taskbar. The popup includes a **What counts as a web app?**
+explanation. The extension adds tabs to that app-style window; it does not turn
+a regular Firefox tab into a web app.
 
 Firefox's built-in **Ctrl+T** still targets the main browser window. The
 extension cannot replace that browser-owned behavior.
@@ -35,8 +42,9 @@ extension cannot replace that browser-owned behavior.
 - Firefox 143 or newer.
 - Windows, because native Firefox web apps are currently a Windows-only
   feature.
-- Regular HTTP and HTTPS browser tabs also work, although the extension is
-  designed for web-app windows.
+- Firefox does not expose a reliable web-app-window flag to extensions. If the
+  command is invoked in a regular HTTP or HTTPS window, Firefox may simply open
+  an ordinary tab there; that does not create or reproduce the web-app workflow.
 
 This relies on current Firefox behavior rather than a documented web-app tabs
 feature. A future Firefox release could change it. See the
@@ -44,8 +52,9 @@ feature. A future Firefox release could change it. See the
 
 ## Privacy and permissions
 
-The extension stores no data, contains no analytics or content scripts, and
-sends no network requests of its own. See [PRIVACY.md](PRIVACY.md).
+The extension stores only the popup's light/dark preference locally. It contains
+no analytics or content scripts and sends no network requests of its own. See
+[PRIVACY.md](PRIVACY.md).
 
 - `activeTab` lets it read the current page URL after an explicit user action.
 - `menus` adds the page context-menu fallback.

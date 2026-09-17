@@ -37,7 +37,7 @@ test("rejects missing and non-web tabs", () => {
   assert.throws(() => requireWebTab(), /active browser tab/);
   assert.throws(
     () => requireWebTab({ id: 1, windowId: 2, url: "about:addons" }),
-    /Focus an HTTP or HTTPS web-app page/
+    /standalone Windows taskbar icon/
   );
 });
 

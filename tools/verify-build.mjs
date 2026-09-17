@@ -117,7 +117,13 @@ for (const file of expectedFiles) {
   );
 }
 
-for (const file of ["background.js", "lib.js", "popup.js", "shortcut.js"]) {
+for (const file of [
+  "background.js",
+  "lib.js",
+  "popup.js",
+  "shortcut.js",
+  "theme.js"
+]) {
   const contents = archivedFiles.get(file).toString("utf8");
   assert.doesNotMatch(contents, /\b(?:eval|Function|importScripts)\s*\(/);
 }

@@ -42,7 +42,7 @@
 
     if (!isWebUrl(tab.url)) {
       throw new Error(
-        "Focus an HTTP or HTTPS web-app page before opening another tab."
+        "Open a Firefox web app from its standalone Windows taskbar icon, then try again. This extension is not for regular Firefox tabs or Firefox settings pages."
       );
     }
 

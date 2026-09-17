@@ -36,6 +36,10 @@ class FakeElement {
     this.attributes.set(name, value);
   }
 
+  getAttribute(name) {
+    return this.attributes.get(name) || null;
+  }
+
   async dispatch(type, event = {}) {
     return this.listeners.get(type)?.(event);
   }
@@ -43,8 +47,12 @@ class FakeElement {
 
 class FakeDocument {
   constructor() {
+    this.documentElement = new FakeElement();
     this.elements = new Map([
       "openTab",
+      "themeToggle",
+      "themeIcon",
+      "themeLabel",
       "shortcut",
       "clearShortcut",
       "resetShortcut",
@@ -65,6 +73,19 @@ class FakeDocument {
   async dispatch(type, event) {
     return this.listeners.get(type)?.(event);
   }
+}
+
+function makeStorage(initial = {}) {
+  const values = new Map(Object.entries(initial));
+
+  return {
+    getItem(key) {
+      return values.get(key) || null;
+    },
+    setItem(key, value) {
+      values.set(key, value);
+    }
+  };
 }
 
 function makeBrowserApi() {
@@ -132,6 +153,35 @@ test("loads and edits Firefox's real extension command shortcut", async () => {
     documentRef.getElementById("shortcut").textContent,
     "Ctrl + Alt + K"
   );
+});
+
+test("toggles and remembers the popup color theme", async () => {
+  const documentRef = new FakeDocument();
+  const browserApi = makeBrowserApi();
+  const storageRef = makeStorage({ "web-app-tabs-theme": "dark" });
+
+  await initializePopup({
+    documentRef,
+    browserApi,
+    storageRef,
+    matchMediaRef() {
+      return { matches: false };
+    },
+    closePopup() {}
+  });
+
+  assert.equal(documentRef.documentElement.getAttribute("data-theme"), "dark");
+  assert.equal(documentRef.getElementById("themeLabel").textContent, "Light");
+  assert.equal(
+    documentRef.getElementById("themeToggle").attributes.get("aria-label"),
+    "Use light mode"
+  );
+
+  await documentRef.getElementById("themeToggle").dispatch("click");
+
+  assert.equal(documentRef.documentElement.getAttribute("data-theme"), "light");
+  assert.equal(documentRef.getElementById("themeLabel").textContent, "Dark");
+  assert.equal(storageRef.getItem("web-app-tabs-theme"), "light");
 });
 
 test("opens a web-app tab from the popup", async () => {
