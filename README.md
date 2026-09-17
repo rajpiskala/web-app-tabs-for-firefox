@@ -11,6 +11,7 @@
   <a href="https://support.mozilla.org/kb/web-apps-firefox-windows"><img alt="Firefox 143 or newer" src="https://img.shields.io/badge/Firefox-143%2B-FF7139?logo=firefoxbrowser&amp;logoColor=white&amp;style=flat-square"></a>
   <img alt="Windows" src="https://img.shields.io/badge/platform-Windows-0078D4?logo=windows11&amp;logoColor=white&amp;style=flat-square">
   <a href="LICENSE"><img alt="Mozilla Public License 2.0" src="https://img.shields.io/badge/license-MPL--2.0-blue?style=flat-square"></a>
+  <a href="https://github.com/sponsors/rajpiskala"><img alt="Sponsor on GitHub" src="https://img.shields.io/github/sponsors/rajpiskala?logo=githubsponsors&amp;style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -20,6 +21,12 @@
   <a href="#development">Development</a> ·
   <a href="PRIVACY.md">Privacy</a>
 </p>
+
+<p align="center">
+  <img src="docs/assets/chatgpt-multiple-tabs.png" alt="One ChatGPT web app window with five conversations open as native Firefox tabs">
+</p>
+
+<p align="center"><em>Five conversations, one standalone ChatGPT web app window—using native Firefox tabs.</em></p>
 
 Firefox web apps open in focused, app-like windows—but Firefox normally hides
 their tab strip and sends new tabs to the main browser window. Web App Tabs
