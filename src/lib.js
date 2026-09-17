@@ -79,7 +79,7 @@
 
     if (createdTab.windowId !== sourceTab.windowId) {
       throw new Error(
-        "Firefox created the tab in a different window instead of the focused web-app window."
+        "Firefox created the tab in a different window instead of the focused web app window."
       );
     }
 

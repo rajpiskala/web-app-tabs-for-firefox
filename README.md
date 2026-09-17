@@ -1,13 +1,13 @@
 <div align="center">
   <img src="src/icons/icon.svg" alt="" width="96" height="96">
   <h1>Web App Tabs for Firefox</h1>
-  <p>Multiple tabs, one native Firefox web-app window.</p>
+  <p>Multiple tabs, one native Firefox web app window.</p>
 </div>
 
 Firefox web apps intentionally hide their tab strip and send normal new-tab
 actions to the main browser window. This small Firefox-only extension opens a
 tab against the focused window's exact `windowId`, which makes Firefox reveal
-its existing tab strip inside the web-app window.
+its existing tab strip inside the web app window.
 
 It works with any HTTP or HTTPS site added using Firefox's **Add tab to
 taskbar** feature, including sites commonly described as PWAs. ChatGPT gets a
@@ -22,7 +22,7 @@ keeps its fresh-chat override in both window types.
 
 ## Use it
 
-Focus a native Firefox web-app window, then either:
+Focus a native Firefox web app window, then either:
 
 - Press **Alt+Shift+G**.
 - Click the extension button and choose **Open another tab**.
@@ -52,10 +52,10 @@ extension cannot replace that browser-owned behavior.
 - Windows, because native Firefox web apps are currently a Windows-only
   feature.
 - Regular HTTP and HTTPS tabs are supported as a convenient reopen-this-page
-  shortcut. Firefox does not expose a reliable web-app-window flag, so the
+  shortcut. Firefox does not expose a reliable web app window flag, so the
   extension uses the appropriate same-window behavior in either context.
 
-This relies on current Firefox behavior rather than a documented web-app tabs
+This relies on current Firefox behavior rather than a documented web app tabs
 feature. A future Firefox release could change it. See the
 [policy and platform review](docs/policy-review.md) for the technical details.
 

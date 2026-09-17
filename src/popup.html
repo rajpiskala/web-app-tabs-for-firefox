@@ -13,7 +13,7 @@
       <img src="icons/icon.svg" alt="" width="36" height="36">
       <div>
         <h1>Web App Tabs</h1>
-        <p>Multiple tabs, one web-app window.</p>
+        <p>Multiple tabs, one web app window.</p>
       </div>
     </div>
     <button id="themeToggle" class="theme-toggle" type="button">
@@ -23,7 +23,14 @@
   </header>
 
   <details class="web-app-help">
-    <summary><span class="info-icon" aria-hidden="true">i</span>What counts as a web app?</summary>
+    <summary>
+      <svg class="info-icon" viewBox="0 0 16 16" aria-hidden="true">
+        <circle cx="8" cy="8" r="6.25"></circle>
+        <circle class="info-dot" cx="8" cy="4.75" r="0.8"></circle>
+        <path d="M8 7.25v4"></path>
+      </svg>
+      What counts as a web app?
+    </summary>
     <div class="help-panel">
       <p>It is a site you added with <strong>Add tab to taskbar</strong> and opened from its standalone Windows taskbar icon. Here, opening another tab reveals Firefox's hidden tab strip.</p>
       <p>In a regular Firefox window, the same action simply opens the current page again in another tab.</p>
@@ -31,16 +38,15 @@
   </details>
 
   <button id="openTab" class="primary" type="button">Open another tab</button>
-  <p class="window-hint"><strong>Web app:</strong> reveal tabs <span aria-hidden="true">·</span> <strong>Regular tab:</strong> reopen page</p>
 
   <section aria-labelledby="shortcutHeading">
     <h2 id="shortcutHeading">Keyboard shortcut</h2>
     <button id="shortcut" class="shortcut" type="button"></button>
-    <p class="help">Click, then press a Firefox-compatible key combination.</p>
+    <p class="help">Click the shortcut, then press the keys you want.</p>
 
     <div class="actions">
-      <button id="clearShortcut" type="button">Clear</button>
-      <button id="resetShortcut" type="button">Reset default</button>
+      <button id="clearShortcut" class="clear-action" type="button">Clear shortcut</button>
+      <button id="resetShortcut" class="reset-action" type="button">Reset default</button>
     </div>
 
     <button id="manageShortcuts" class="link-button" type="button">
@@ -49,7 +55,6 @@
   </section>
 
   <div id="status" class="status" role="status" aria-live="polite"></div>
-  <p class="privacy">No analytics. No data leaves your browser.</p>
 
   <script src="shortcut.js"></script>
   <script src="popup.js"></script>

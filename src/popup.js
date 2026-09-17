@@ -81,7 +81,7 @@
       const commands = await browserApi.commands.getAll();
       const command = commands.find(item => item.name === COMMAND_NAME);
       if (!command) {
-        throw new Error("The web-app tab command is unavailable.");
+        throw new Error("The web app tab command is unavailable.");
       }
       shortcut = command.shortcut || "";
     }
