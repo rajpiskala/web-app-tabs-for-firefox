@@ -37,7 +37,7 @@ test("rejects missing and non-web tabs", () => {
   assert.throws(() => requireWebTab(), /active browser tab/);
   assert.throws(
     () => requireWebTab({ id: 1, windowId: 2, url: "about:addons" }),
-    /works in Firefox web-app windows and regular browser tabs/
+    /Switch to a regular website or Firefox web app/
   );
 });
 

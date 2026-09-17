@@ -42,7 +42,7 @@
 
     if (!isWebUrl(tab.url)) {
       throw new Error(
-        "Open an HTTP or HTTPS page first. Web App Tabs works in Firefox web-app windows and regular browser tabs, but not Firefox settings pages."
+        "This page can't be reopened. Switch to a regular website or Firefox web app and try again."
       );
     }
 

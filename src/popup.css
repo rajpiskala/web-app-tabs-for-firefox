@@ -105,6 +105,10 @@ button {
   white-space: nowrap;
 }
 
+.window-hint strong {
+  font-weight: 600;
+}
+
 .web-app-help {
   margin: -4px 0 12px 46px;
 }
@@ -163,8 +167,8 @@ button {
 }
 
 section {
-  margin-top: 18px;
-  padding-top: 15px;
+  margin-top: 14px;
+  padding-top: 13px;
   border-top: 1px solid light-dark(#e2e4eb, #3a3746);
 }
 
@@ -236,10 +240,14 @@ button:disabled {
 }
 
 .status {
-  min-height: 16px;
   margin-top: 12px;
   color: light-dark(#126b47, #7cdaa9);
   font-size: 12px;
+  line-height: 1.4;
+}
+
+.status:empty {
+  display: none;
 }
 
 .status.error {
@@ -247,6 +255,10 @@ button:disabled {
 }
 
 .privacy {
-  margin-top: 8px;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid light-dark(#eceef3, #302d39);
+  font-size: 11px;
+  line-height: 1.4;
   text-align: center;
 }
